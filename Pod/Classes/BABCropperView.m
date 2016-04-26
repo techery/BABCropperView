@@ -172,6 +172,7 @@ static UIImage* BABCropperViewCroppedAndScaledImageWithCropRect(UIImage *image, 
 - (void)sharedInit {
     
     self.operationQueue = [[NSOperationQueue alloc] init];
+    self.operationQueue.maxConcurrentOperationCount = 1;
     self.cropDisplayScale = 1.0f;
     self.cropDisplayOffset = UIOffsetZero;
     
