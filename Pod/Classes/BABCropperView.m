@@ -181,7 +181,6 @@ static UIImage* BABCropperViewCroppedAndScaledImageWithCropRect(UIImage *image, 
     self.scrollView.showsHorizontalScrollIndicator = NO;
     self.scrollView.showsVerticalScrollIndicator = NO;
     self.scrollView.delegate = self;
-    self.scrollView.bounces = NO;
     [self addSubview:self.scrollView];
     
     self.imageView = [[UIImageView alloc] init];
