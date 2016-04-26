@@ -354,7 +354,7 @@ static UIImage* BABCropperViewCroppedAndScaledImageWithCropRect(UIImage *image, 
 
 #pragma mark - Public Methods
 
-- (void)renderCroppedImage:(void (^)(UIImage *croppedImage, CGRect cropRect))completionBlock {
+- (void)renderCroppedImage:(void (^)(UIImage *croppedImage, NSError *error))completionBlock {
     
     CGRect cropFrameRect;
     cropFrameRect.origin.x = self.scrollView.bounds.origin.x + self.scrollView.contentInset.left;
@@ -375,7 +375,7 @@ static UIImage* BABCropperViewCroppedAndScaledImageWithCropRect(UIImage *image, 
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            completionBlock(croppedImage, cropRect);
+            completionBlock(croppedImage, nil);
         });
     }];
 }
