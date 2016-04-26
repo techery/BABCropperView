@@ -140,6 +140,7 @@ static UIImage* BABCropperViewCroppedAndScaledImageWithCropRect(UIImage *image, 
 @property (nonatomic, assign) CGSize displayCropSize;
 @property (nonatomic, assign) CGRect displayCropRect;
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
+@property (atomic, assign) BOOL canCrop;
 
 @end
 
@@ -355,6 +356,11 @@ static UIImage* BABCropperViewCroppedAndScaledImageWithCropRect(UIImage *image, 
 #pragma mark - Public Methods
 
 - (void)renderCroppedImage:(void (^)(UIImage *croppedImage, NSError *error))completionBlock {
+
+    if (!self.canCrop) {
+        completionBlock(nil, [NSError new]);
+        return;
+    }
     
     CGRect cropFrameRect;
     cropFrameRect.origin.x = self.scrollView.bounds.origin.x + self.scrollView.contentInset.left;
@@ -390,6 +396,22 @@ static UIImage* BABCropperViewCroppedAndScaledImageWithCropRect(UIImage *image, 
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView {
     
     [self centerImageInScrollView:scrollView];
+}
+
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
+    self.canCrop = NO;
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    self.canCrop = YES;
+}
+
+- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view {
+    self.canCrop = NO;
+}
+
+- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale {
+    self.canCrop = YES;
 }
 
 @end

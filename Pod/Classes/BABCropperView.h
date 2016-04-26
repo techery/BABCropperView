@@ -19,6 +19,7 @@
 @property (nonatomic, assign) UIOffset cropDisplayOffset; //defaults to UIOffsetZero
 @property (nonatomic, assign) BOOL cropsImageToCircle; // defaults to NO;
 @property (nonatomic, assign) BOOL leavesUnfilledRegionsTransparent; // defaults to NO;
+@property (atomic, readonly, assign) BOOL canCrop; // defaults to YES;
 
 - (void)renderCroppedImage:(void (^)(UIImage *croppedImage, NSError *error))completionBlock;
 
